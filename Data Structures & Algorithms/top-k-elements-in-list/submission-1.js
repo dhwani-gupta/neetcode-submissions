@@ -1,0 +1,25 @@
+class Solution {
+    /**
+     * @param {number[]} nums
+     * @param {number} k
+     * @return {number[]}
+     */
+    topKFrequent(nums, k) {
+        let map = new Map();
+        for(let num of nums){
+            map.set(num, (map.get(num) || 0)+1);
+
+        }
+        let bucket = Array(nums.length + 1).fill().map(()=>[]);
+        for(let [num,freq] of map){
+            bucket[freq].push(num)
+        }
+        let result = [];
+        for(let i = bucket.length - 1; i>=0 && result.length<k; i--){
+            for(let ans of bucket[i]){
+                result.push(ans)
+            }
+        }
+        return result;
+    }
+}
